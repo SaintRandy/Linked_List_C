@@ -6,14 +6,6 @@ struct node {
 	struct node *next;
 };
 
-int ass_node (const struct node *in_list){
-
-	if (in_list == NULL)
-		return 1;
-	else
-		return 0;
-}
-
 
 ////////////////////////////////////////////////////////////////////
 int print_list (const struct node *in_list) {
@@ -87,6 +79,34 @@ int add_node (const struct node *in_list) {
 	return 0;
 }
 
+
+////////////////////////////////////////////////////////////////////
+int delete_node (strucrt node *in_list, int num){ //Takes the pointer to the linked list and number of the node to delete
+
+	if (in_list == NULL)
+		return 1;
+	
+	if (len_list == num)
+		return 2;
+
+	if (len_list == 0)
+		return 3;
+
+}
+
+struct node *delete_first_node (struct node *in_list) {
+
+	struct node *next = NULL;
+
+	next = in_list->next;
+
+	in_list->data = 0;
+	in_list->next = NULL;
+
+	free(in_list);
+
+	return next;
+}
 
 ////////////////////////////////////////////////////////////////////
 int delete_nodes (struct node *in_list) {
