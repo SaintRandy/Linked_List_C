@@ -20,7 +20,15 @@ int main(void) {
 	printf("Test deleting the first node: \n");
 	head = delete_first_node(head);
 	print_list(head);
-	
+
+	add_node(head);
+	add_node(head);
+	add_node(head);
+
+	debug_nodes(head);
+	printf("Test deleting all nodes: \n");
+	delete_all_nodes(head);	
 	debug_nodes(head);
 
+	print_list(head);
 }
