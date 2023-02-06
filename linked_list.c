@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 struct node {
 	int data;
 	struct node *next;
@@ -26,8 +23,17 @@ int print_list (const struct node *in_list) {
 	return 0;
 }
 
+struct node *init_list () {
+	struct node *list;
+	list = (struct node*)malloc(sizeof(struct node)); 
+	
+	list->data = 0;
+	list->next = NULL;
 
+	return list;
+}
 
+////////////////////////////////////////////////////////////////////
 int len_list (struct node *in_list) {
 	int i;
 	
@@ -119,22 +125,6 @@ struct node *delete_first_node (struct node *in_list) {
 }
 
 
-////////////////////////////////////////////////////////////////////
-int delete_nodes (struct node *in_list) {
-	struct node *tmp;
-	
-	if (in_list == NULL)
-		return 1;
-	
-	while (in_list != NULL) {
-		tmp = in_list;
-		in_list = in_list->next;
-		free(tmp);
-	}
-	
-	return 0;
-}
-
 
 ////////////////////////////////////////////////////////////////////
 int debug_nodes(struct node *in_list) {
@@ -145,49 +135,10 @@ int debug_nodes(struct node *in_list) {
 		return 1;
 
 	for (; in_list != NULL; i++) {
-		printf("Step: %d | Pointer: %p \n", i, (void *)in_list);
+		printf("Step: %d | Pointer:  %p \n", i, (void *)in_list);
 		in_list = in_list->next;
 	}
 
 }
 
 
-////////////////////////////////////////////////////////////////////
-int main(void) {
-
-	struct node *head = NULL;
-	struct node *second = NULL;
-	struct node *third = NULL;
-	
-	head = (struct node*)malloc(sizeof(struct node));
-	second = (struct node*)malloc(sizeof(struct node));
-	third = (struct node*)malloc(sizeof(struct node));
-	
-	head->data = 0;
-	head->next = second;
-	
-	second->data = 1;
-	second->next = third;
-	
-	third->data = 2;
-	third->next = NULL;
-
-	print_list(head);
-	printf("Test len: %d\n", len_list(head));
-	!add_node(head);
-	printf("Test add: %d\n", len_list(head));	
-	printf("Test change: \n");
-	change_node(head, 3, 3);
-	print_list(head);
-	
-	printf("Test deleting the first node: \n");
-	head = delete_first_node(head);
-	print_list(head);
-	
-	printf("Test delete: \n");
-	debug_nodes(head);	
-	delete_nodes(head);
-	print_list(head);	
-	printf("Test len: %d\n", len_list(head));
-	debug_nodes(head);	
-}
