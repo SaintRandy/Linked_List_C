@@ -81,8 +81,9 @@ int add_node (const struct node *in_list) {
 
 
 ////////////////////////////////////////////////////////////////////
-int delete_node (strucrt node *in_list, int num){ //Takes the pointer to the linked list and number of the node to delete
+struct node *delete_node (struct node *in_list, int num){ //Takes the pointer to the linked list and number of the node to delete
 
+	struct node *next = NULL;
 	if (in_list == NULL)
 		return 1;
 	
@@ -90,14 +91,23 @@ int delete_node (strucrt node *in_list, int num){ //Takes the pointer to the lin
 		return 2;
 
 	if (len_list == 0)
-		return 3;
+//		in_list = delete_first_node(next);
 
+
+	return in_list;
 }
 
+
+
+
+////////////////////////////////////////////////////////////////////
 struct node *delete_first_node (struct node *in_list) {
 
 	struct node *next = NULL;
 
+	if (in_list == NULL)
+		return 1;
+	
 	next = in_list->next;
 
 	in_list->data = 0;
@@ -108,6 +118,7 @@ struct node *delete_first_node (struct node *in_list) {
 	return next;
 }
 
+
 ////////////////////////////////////////////////////////////////////
 int delete_nodes (struct node *in_list) {
 	struct node *tmp;
@@ -115,13 +126,12 @@ int delete_nodes (struct node *in_list) {
 	if (in_list == NULL)
 		return 1;
 	
-	while (in_list->next != NULL) {
+	while (in_list != NULL) {
 		tmp = in_list;
 		in_list = in_list->next;
 		free(tmp);
 	}
 	
-	free(in_list);
 	return 0;
 }
 
@@ -169,6 +179,11 @@ int main(void) {
 	printf("Test change: \n");
 	change_node(head, 3, 3);
 	print_list(head);
+	
+	printf("Test deleting the first node: \n");
+	head = delete_first_node(head);
+	print_list(head);
+	
 	printf("Test delete: \n");
 	debug_nodes(head);	
 	delete_nodes(head);
