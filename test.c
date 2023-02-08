@@ -5,7 +5,7 @@
 int main(void) {
 
 	struct node *head = init_list();
-
+	struct node *foo = NULL;
 
 	print_list(head);
 	printf("Test len: %d\n", len_list(head));
@@ -17,18 +17,30 @@ int main(void) {
 	change_node(head, 1, 1);
 	print_list(head);
 	
+	print_list(head);
+
+	add_node(head);
+	add_node(head);
+	add_node(head);
+	
+	change_node(head, 2, 2);
+	change_node(head, 3, 3);
+	change_node(head, 4, 4);
+
+	debug_nodes(head);
+	print_list(head);
+	printf("Nodes: %d\n", len_list(head));	
+
+	foo = pick_node (head, 2);
+	printf("Data: %d\n", foo->data);
+	printf("\n------------------------\n");
 	printf("Test deleting the first node: \n");
 	head = delete_first_node(head);
 	print_list(head);
-
-	add_node(head);
-	add_node(head);
-	add_node(head);
-
-	debug_nodes(head);
+	printf("\n------------------------\n");
 	printf("Test deleting all nodes: \n");
-	delete_all_nodes(head);	
-	debug_nodes(head);
-
+	head = delete_all_nodes(head);	
 	print_list(head);
-}
+	debug_nodes(head);
+	print_list(head);
+	}

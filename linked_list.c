@@ -46,6 +46,19 @@ int len_list (struct node *in_list) {
 	return i;
 }
 
+////////////////////////////////////////////////////////////////////
+struct node *pick_node (struct node *in_list, int step) {
+	int i;
+	
+	if (in_list == NULL)
+		return 0;
+	
+	for (i = 0; i < step; ++i)
+		in_list = in_list->next;
+
+	return in_list;
+
+}
 
 ////////////////////////////////////////////////////////////////////
 int change_node (struct node *in_list, int step, int value) {
@@ -88,29 +101,41 @@ int add_node (const struct node *in_list) {
 
 ////////////////////////////////////////////////////////////////////
 struct node *delete_first_node (struct node *in_list) {
-
 	struct node *next = NULL;
 
 	if (in_list == NULL)
 		return NULL;
 	
 	next = in_list->next;
-
+	
 	in_list->data = 0;
 	in_list->next = NULL;
 
 	free(in_list);
-
+	in_list = NULL;
 	return next;
 }
 
+
+////////////////////////////////////////////////////////////////////
+struct node *delete_last_node (struct node *in_list) {
+	struct node *last = NULL;
+	int len;
+
+	len = len_list(in_list);	
+
+}
+
+////////////////////////////////////////////////////////////////////
 struct node *delete_all_nodes (struct node *in_list) {
 
 	if (in_list == NULL)
 		return NULL;
 
-	while (in_list != NULL)
-		delete_first_node(in_list);
+	while (in_list != NULL) 
+		in_list = delete_first_node(in_list);
+	
+	return in_list;
 }
 
 ////////////////////////////////////////////////////////////////////
