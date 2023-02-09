@@ -5,24 +5,26 @@ struct node {
 
 
 ////////////////////////////////////////////////////////////////////
-int print_list (const struct node *in_list) {
-	struct node *list;
-	list = in_list;
-	
+int print_list (struct node *in_list) {
+
 	if (in_list == NULL)
 		return 1;
 	
 	
-	while (list != NULL) {
-		printf("%d, ", list->data);
-		list = list->next;
+	while (in_list != NULL) {
+		printf("%d", in_list->data);
+		if (in_list->next != NULL)
+			printf(", ");
+		in_list = in_list->next;
 	}
 	
-	printf("\n");
-	
+	putchar('\n');
+
 	return 0;
 }
 
+
+////////////////////////////////////////////////////////////////////
 struct node *init_list () {
 	struct node *list;
 	list = (struct node*)malloc(sizeof(struct node)); 
@@ -67,10 +69,7 @@ int change_node (struct node *in_list, int step, int value) {
 	if (in_list == NULL)
 		return 1;
 
-	tmp = in_list;
-
-	for (int i = 0; i < step; ++i)
-		tmp = tmp->next;
+	tmp = pick_node(in_list, step);
 	
 	tmp->data = value;
 	
@@ -152,5 +151,4 @@ int debug_nodes(struct node *in_list) {
 	}
 
 }
-
 
