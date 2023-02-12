@@ -33,10 +33,29 @@ int main(void) {
 
 	foo = pick_node (head, 2);
 	printf("Data: %d\n", foo->data);
+	
+	foo = pick_node (head, 0);
+	printf("Data: %d\n", foo->data);
+
+	foo = pick_node (head, 3);
+	printf("Data: %d\n", foo->data);
+
 	printf("\n------------------------\n");
-	printf("Test deleting the first node: \n");
-	head = delete_first_node(head);
+	//printf("Test deleting the first node: \n");
+	//head = delete_first_node(head);
+	//print_list(head);
+	
+	printf("\n------------------------\n");
+	//printf("Test deleting the last node: \n");
+	//foo = delete_last_node(head);
+	//print_list(head);
+	//print_list(foo);
+	
+	printf("\n------------------------\n");
+	printf("Test deleting the node: \n");
+	delete_node(head, 2);
 	print_list(head);
+	
 	printf("\n------------------------\n");
 	printf("Test deleting all nodes: \n");
 	head = delete_all_nodes(head);	

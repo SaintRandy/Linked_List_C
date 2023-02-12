@@ -119,10 +119,18 @@ struct node *delete_first_node (struct node *in_list) {
 ////////////////////////////////////////////////////////////////////
 struct node *delete_last_node (struct node *in_list) {
 	struct node *last = NULL;
-	int len;
+	
+	if (in_list == NULL)
+		return NULL;
 
-	len = len_list(in_list);	
+	last = pick_node(in_list, len_list(in_list)-2);
 
+	last->next->data = 0;
+	free(last->next);
+
+	last->next = NULL;
+
+	return last;
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -135,6 +143,27 @@ struct node *delete_all_nodes (struct node *in_list) {
 		in_list = delete_first_node(in_list);
 	
 	return in_list;
+}
+
+
+////////////////////////////////////////////////////////////////////
+struct node *delete_node (struct node *in_list, int step) {
+	struct node *last = NULL;
+	struct node *next = NULL;
+	
+	if (in_list == NULL)
+		return NULL;
+
+	last = pick_node(in_list, step - 1);
+
+	next = last->next->next;
+
+	last->next->data = 0;
+	last->next->next = NULL;
+	free(last->next);
+
+	last->next = next;
+
 }
 
 ////////////////////////////////////////////////////////////////////
