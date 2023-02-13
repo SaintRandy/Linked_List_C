@@ -62,4 +62,6 @@ int main(void) {
 	print_list(head);
 	debug_nodes(head);
 	print_list(head);
-	}
+	printf("All testing is done!\n");
+
+}
