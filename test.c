@@ -22,6 +22,11 @@ int main(void) {
 	add_node(head);
 	add_node(head);
 	add_node(head);
+	add_node(head);
+	add_node(head);
+	add_node(head);
+	add_node(head);
+	add_node(head);
 	
 	change_node(head, 2, 2);
 	change_node(head, 3, 3);
@@ -44,7 +49,10 @@ int main(void) {
 	//printf("Test deleting the first node: \n");
 	//head = delete_first_node(head);
 	//print_list(head);
-	
+	print_list(head);
+	int vector[2] = {3,4};	
+	delete_n_nodes(head, vector);	
+	print_list(head);
 	printf("\n------------------------\n");
 	//printf("Test deleting the last node: \n");
 	//foo = delete_last_node(head);

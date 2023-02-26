@@ -1,8 +1,17 @@
+#include <stdlib.h>
+#include <stdio.h>
+
 struct node {
 	int data;
 	struct node *next;
 };
 
+////////////////////////////////////////////////////////////////////
+int check_pvector(int *vector) {
+
+	return vector[0] < vector[1] ? 1 : 0;
+
+}
 
 ////////////////////////////////////////////////////////////////////
 int print_list (struct node *in_list) {
@@ -79,7 +88,7 @@ int change_node (struct node *in_list, int step, int value) {
 
 
 ////////////////////////////////////////////////////////////////////
-int add_node (const struct node *in_list) {
+int add_node (struct node *in_list) {
 	struct node *new_node = NULL;
 	struct node *tmp;
 	
@@ -163,7 +172,25 @@ struct node *delete_node (struct node *in_list, int step) {
 	free(last->next);
 
 	last->next = next;
+	
+	return last;
+}
 
+
+////////////////////////////////////////////////////////////////////
+struct node *delete_n_nodes (struct node *in_list, int *vector) {
+	int dif;
+	struct node *last;
+
+	if (!check_pvector(vector))
+		return NULL;
+
+	dif = vector[1] - vector[0];
+
+	for (int i = 0; i < dif; i++) 
+		last = delete_node(in_list, vector[0]);
+
+	return last;
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -180,4 +207,3 @@ int debug_nodes(struct node *in_list) {
 	}
 
 }
-
