@@ -22,9 +22,7 @@ int main(void) {
 	add_node(head);
 	add_node(head);
 	add_node(head);
-	add_node(head);
-	add_node(head);
-	add_node(head);
+	add_nodes(head, 3);
 	
 	change_node(head, 2, 2);
 	change_node(head, 3, 3);
@@ -36,11 +34,6 @@ int main(void) {
 	debug_nodes(head);
 	print_list(head);
 	printf("Nodes: %d\n", len_list(head));
-	printf("Last node: \n");
-	print_list(pick_last_node(head));
-	printf("--------\n");
-	print_list(pick_node(head, 7));
-	printf("--------\n");
 
 	printf("\n------------------------\n");
 	//printf("Test deleting the first node: \n");

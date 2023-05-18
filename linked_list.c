@@ -103,15 +103,16 @@ int add_node (struct node *in_list) {
 
 
 int add_nodes (struct node *in_list, unsigned int size) {
-        int i;
+        int i, r;
+	r = 0;
 
 	if (in_list == NULL)
 		return 1;
 
-	for (i = 0; i < size; ++i)
-		add_node(in_list);
+	for (i = 0; i < size && r != 1; ++i)
+		r = add_node(in_list);
 
-	return 0;
+	return r;
 
 }
 
