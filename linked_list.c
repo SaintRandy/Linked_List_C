@@ -7,9 +7,9 @@ struct node {
 };
 
 ////////////////////////////////////////////////////////////////////
-int check_pvector(int *vector) {
+int check_pvector(int first, int second) {
 
-	return vector[0] < vector[1] ? 1 : 0;
+	return first < second ? 1 : 0;
 
 }
 
@@ -64,23 +64,22 @@ struct node *pick_node (struct node *in_list, int step) {
 	if (in_list == NULL)
 		return 0;
 	
-	for (i = 0; i < step; ++i)
+	for (i = 0; i < step; i++) {
 		in_list = in_list->next;
-
+	}
 	return in_list;
 
 }
 
+
 ////////////////////////////////////////////////////////////////////
 int change_node (struct node *in_list, int step, int value) {
-	struct node *tmp;
-	
 	if (in_list == NULL)
 		return 1;
 
-	tmp = pick_node(in_list, step);
+	in_list = pick_node(in_list, step);
 	
-	tmp->data = value;
+	in_list->data = value;
 	
 	return 0;
 }
@@ -90,20 +89,30 @@ int change_node (struct node *in_list, int step, int value) {
 ////////////////////////////////////////////////////////////////////
 int add_node (struct node *in_list) {
 	struct node *new_node = NULL;
-	struct node *tmp;
 	
 	if (in_list == NULL)
 		return 1;
 	
-	tmp = in_list;
 	new_node = (struct node*)malloc(sizeof(struct node));
 	
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	
-	tmp->next = new_node;
+	in_list = pick_node(in_list, len_list(in_list)-1);		
+	in_list->next = new_node;
 	
 	return 0;
+}
+
+
+int add_nodes (struct node *in_list, unsigned int size) {
+        int i;
+
+	if (in_list == NULL)
+		return 1;
+
+	for (i = 0; i < size; ++i)
+		add_node(in_list);
+
+	return 0;
+
 }
 
 
@@ -178,17 +187,17 @@ struct node *delete_node (struct node *in_list, int step) {
 
 
 ////////////////////////////////////////////////////////////////////
-struct node *delete_n_nodes (struct node *in_list, int *vector) {
+struct node *delete_n_nodes (struct node *in_list, int first, int second) {
 	int dif;
 	struct node *last;
 
-	if (!check_pvector(vector))
+	if (!check_pvector(first, second))
 		return NULL;
 
-	dif = vector[1] - vector[0];
+	dif = second - first;
 
-	for (int i = 0; i < dif; i++) 
-		last = delete_node(in_list, vector[0]);
+	for (int i = 0; i <= dif; i++) 
+		last = delete_node(in_list, first);
 
 	return last;
 }
@@ -205,5 +214,6 @@ int debug_nodes(struct node *in_list) {
 		printf("Step: %d | Pointer:  %p \n", i, (void *)in_list);
 		in_list = in_list->next;
 	}
-
+	
+	return 0;
 }
