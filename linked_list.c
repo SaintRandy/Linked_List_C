@@ -1,41 +1,50 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 struct node {
 	int data;
 	struct node *next;
 };
 
-int ass_node (const struct node *in_list){
+////////////////////////////////////////////////////////////////////
+int check_pvector(int first, int second) {
 
-	if (in_list == NULL)
-		return 1;
-	else
-		return 0;
+	return first < second ? 1 : 0;
+
 }
 
-
 ////////////////////////////////////////////////////////////////////
-int print_list (const struct node *in_list) {
-	struct node *list;
-	list = in_list;
-	
+int print_list (struct node *in_list) {
+
 	if (in_list == NULL)
 		return 1;
 	
 	
-	while (list != NULL) {
-		printf("%d, ", list->data);
-		list = list->next;
+	while (in_list != NULL) {
+		printf("%d", in_list->data);
+		if (in_list->next != NULL)
+			printf(", ");
+		in_list = in_list->next;
 	}
 	
-	printf("\n");
-	
+	putchar('\n');
+
 	return 0;
 }
 
 
+////////////////////////////////////////////////////////////////////
+struct node *init_list () {
+	struct node *list;
+	list = (struct node*)malloc(sizeof(struct node)); 
+	
+	list->data = 0;
+	list->next = NULL;
 
+	return list;
+}
+
+////////////////////////////////////////////////////////////////////
 int len_list (struct node *in_list) {
 	int i;
 	
@@ -48,20 +57,29 @@ int len_list (struct node *in_list) {
 	return i;
 }
 
+////////////////////////////////////////////////////////////////////
+struct node *pick_node (struct node *in_list, int step) {
+	int i;
+	
+	if (in_list == NULL)
+		return 0;
+	
+	for (i = 0; i < step; i++) {
+		in_list = in_list->next;
+	}
+	return in_list;
+
+}
+
 
 ////////////////////////////////////////////////////////////////////
 int change_node (struct node *in_list, int step, int value) {
-	struct node *tmp;
-	
 	if (in_list == NULL)
 		return 1;
 
-	tmp = in_list;
-
-	for (int i = 0; i < step; ++i)
-		tmp = tmp->next;
+	in_list = pick_node(in_list, step);
 	
-	tmp->data = value;
+	in_list->data = value;
 	
 	return 0;
 }
@@ -69,42 +87,120 @@ int change_node (struct node *in_list, int step, int value) {
 
 
 ////////////////////////////////////////////////////////////////////
-int add_node (const struct node *in_list) {
+int add_node (struct node *in_list) {
 	struct node *new_node = NULL;
-	struct node *tmp;
 	
 	if (in_list == NULL)
 		return 1;
 	
-	tmp = in_list;
 	new_node = (struct node*)malloc(sizeof(struct node));
 	
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	
-	tmp->next = new_node;
+	in_list = pick_node(in_list, len_list(in_list)-1);		
+	in_list->next = new_node;
 	
 	return 0;
+}
+
+
+int add_nodes (struct node *in_list, unsigned int size) {
+        int i;
+
+	if (in_list == NULL)
+		return 1;
+
+	for (i = 0; i < size; ++i)
+		add_node(in_list);
+
+	return 0;
+
 }
 
 
 ////////////////////////////////////////////////////////////////////
-int delete_nodes (struct node *in_list) {
-	struct node *tmp;
-	
+struct node *delete_first_node (struct node *in_list) {
+	struct node *next = NULL;
+
 	if (in_list == NULL)
-		return 1;
+		return NULL;
 	
-	while (in_list->next != NULL) {
-		tmp = in_list;
-		in_list = in_list->next;
-		free(tmp);
-	}
+	next = in_list->next;
 	
+	in_list->data = 0;
+	in_list->next = NULL;
+
 	free(in_list);
-	return 0;
+	in_list = NULL;
+	return next;
 }
 
+
+////////////////////////////////////////////////////////////////////
+struct node *delete_last_node (struct node *in_list) {
+	struct node *last = NULL;
+	
+	if (in_list == NULL)
+		return NULL;
+
+	last = pick_node(in_list, len_list(in_list)-2);
+
+	last->next->data = 0;
+	free(last->next);
+
+	last->next = NULL;
+
+	return last;
+}
+
+////////////////////////////////////////////////////////////////////
+struct node *delete_all_nodes (struct node *in_list) {
+
+	if (in_list == NULL)
+		return NULL;
+
+	while (in_list != NULL) 
+		in_list = delete_first_node(in_list);
+	
+	return in_list;
+}
+
+
+////////////////////////////////////////////////////////////////////
+struct node *delete_node (struct node *in_list, int step) {
+	struct node *last = NULL;
+	struct node *next = NULL;
+	
+	if (in_list == NULL)
+		return NULL;
+
+	last = pick_node(in_list, step - 1);
+
+	next = last->next->next;
+
+	last->next->data = 0;
+	last->next->next = NULL;
+	free(last->next);
+
+	last->next = next;
+	
+	return last;
+}
+
+
+////////////////////////////////////////////////////////////////////
+struct node *delete_n_nodes (struct node *in_list, int first, int second) {
+	int dif;
+	struct node *last;
+
+	if (!check_pvector(first, second))
+		return NULL;
+
+	dif = second - first;
+
+	for (int i = 0; i <= dif; i++) 
+		last = delete_node(in_list, first);
+
+	return last;
+}
 
 ////////////////////////////////////////////////////////////////////
 int debug_nodes(struct node *in_list) {
@@ -115,44 +211,9 @@ int debug_nodes(struct node *in_list) {
 		return 1;
 
 	for (; in_list != NULL; i++) {
-		printf("Step: %d | Pointer: %p \n", i, (void *)in_list);
+		printf("Step: %d | Pointer:  %p \n", i, (void *)in_list);
 		in_list = in_list->next;
 	}
-
-}
-
-
-////////////////////////////////////////////////////////////////////
-int main(void) {
-
-	struct node *head = NULL;
-	struct node *second = NULL;
-	struct node *third = NULL;
 	
-	head = (struct node*)malloc(sizeof(struct node));
-	second = (struct node*)malloc(sizeof(struct node));
-	third = (struct node*)malloc(sizeof(struct node));
-	
-	head->data = 0;
-	head->next = second;
-	
-	second->data = 1;
-	second->next = third;
-	
-	third->data = 2;
-	third->next = NULL;
-
-	print_list(head);
-	printf("Test len: %d\n", len_list(head));
-	!add_node(head);
-	printf("Test add: %d\n", len_list(head));	
-	printf("Test change: \n");
-	change_node(head, 3, 3);
-	print_list(head);
-	printf("Test delete: \n");
-	debug_nodes(head);	
-	delete_nodes(head);
-	print_list(head);	
-	printf("Test len: %d\n", len_list(head));
-	debug_nodes(head);	
+	return 0;
 }
