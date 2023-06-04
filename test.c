@@ -6,6 +6,10 @@ int main(void) {
 
 	struct node *head = init_list();
 	struct node *foo = NULL;
+	int values[3] = {5, 6, 7};
+	int r;
+
+
 
 	print_list(head);
 	printf("Test len: %d\n", len_list(head));
@@ -27,9 +31,9 @@ int main(void) {
 	change_node(head, 2, 2);
 	change_node(head, 3, 3);
 	change_node(head, 4, 4);
-	change_node(head, 5, 5);
-	change_node(head, 6, 6);
-	change_node(head, 7, 7);
+	change_nodes(head, 5, 7, values);
+	r =change_nodes(head, 7, 5, values);
+	printf("FOO: %d\n//\n", r);
 
 	debug_nodes(head);
 	print_list(head);

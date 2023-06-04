@@ -9,7 +9,7 @@ struct node {
 ////////////////////////////////////////////////////////////////////
 int check_pvector(int first, int second) {
 
-	return first < second ? 1 : 0;
+	return first <= second ? 1 : 0;
 
 }
 
@@ -84,7 +84,20 @@ int change_node (struct node *in_list, int step, int value) {
 	return 0;
 }
 
+int change_nodes (struct node *in_list, int step_one, int step_two, int *values) {
+	int r;
 
+	if (in_list == NULL)
+		return 1;
+
+	if (check_pvector(step_one, step_two) == 0)
+		return 1;
+
+	for (int i = 0; step_one <= step_two && r != 1; ++i && ++step_one)
+		r = change_node(in_list, step_one, values[i]);
+	
+
+}
 
 ////////////////////////////////////////////////////////////////////
 int add_node (struct node *in_list) {
