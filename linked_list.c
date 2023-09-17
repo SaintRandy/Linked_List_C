@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -240,6 +241,28 @@ struct node *insert_node (struct node *in_list, int value, unsigned int step) {
 
 	return new;
 	
+}
+
+
+struct node *insert_nodes (struct node *in_list, int values[], size_t arr_size, unsigned int first, 
+			   unsigned int second) {
+	
+	size_t i;
+	struct node *new;
+
+	if (!check_pvector(first, second))
+		return NULL;
+
+	if (arr_size != (second - first + 1))
+		return NULL;
+
+	for (i = 0; i < arr_size; i++){
+
+		new = insert_node(in_list, values[i], first + i);	
+
+	}
+
+	return new;
 }
 
 

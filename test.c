@@ -54,6 +54,11 @@ int main(void) {
 	printf("Inserting value 15 in second (1) step of the list\n");
 	insert_node(head, 15, 1);
 	print_list(head);
+	
+	int arr[3] = {80, 40, 60};
+	insert_nodes(head, arr, sizeof(arr)/sizeof(int), 1, 3);
+	print_list(head);
+
 	printf("\n------------------------\n");
 	printf("Test deleting the node: \n");
 	delete_node(head, 2);
