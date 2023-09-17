@@ -51,7 +51,9 @@ int main(void) {
 	//foo = delete_last_node(head);
 	//print_list(head);
 	//print_list(foo);
-	
+	printf("Inserting value 15 in second (1) step of the list\n");
+	insert_node(head, 15, 1);
+	print_list(head);
 	printf("\n------------------------\n");
 	printf("Test deleting the node: \n");
 	delete_node(head, 2);

@@ -68,7 +68,6 @@ struct node *pick_node (struct node *in_list, int step) {
 		in_list = in_list->next;
 	}
 	return in_list;
-
 }
 
 
@@ -84,6 +83,7 @@ int change_node (struct node *in_list, int step, int value) {
 	return 0;
 }
 
+////////////////////////////////////////////////////////////////////
 int change_nodes (struct node *in_list, int step_one, int step_two, int *values) {
 	int r;
 
@@ -96,7 +96,7 @@ int change_nodes (struct node *in_list, int step_one, int step_two, int *values)
 	for (int i = 0; step_one <= step_two && r != 1; ++i && ++step_one)
 		r = change_node(in_list, step_one, values[i]);
 	
-
+	return 0;
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -115,6 +115,7 @@ int add_node (struct node *in_list) {
 }
 
 
+////////////////////////////////////////////////////////////////////
 int add_nodes (struct node *in_list, unsigned int size) {
         int i, r;
 	r = 0;
@@ -215,6 +216,32 @@ struct node *delete_n_nodes (struct node *in_list, int first, int second) {
 
 	return last;
 }
+
+
+
+////////////////////////////////////////////////////////////////////
+struct node *insert_node (struct node *in_list, int value, unsigned int step) {
+	struct node *before;
+	struct node *new;
+	struct node *after;
+
+	if (in_list == NULL)
+		return NULL;
+
+	before = pick_node(in_list, step - 1);
+	after = pick_node(in_list, step);
+
+	new = (struct node*)malloc(sizeof(struct node));	
+
+	new->data = value;
+	
+	before->next = new;
+	new->next = after;
+
+	return new;
+	
+}
+
 
 ////////////////////////////////////////////////////////////////////
 int debug_nodes(struct node *in_list) {
