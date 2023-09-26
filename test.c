@@ -58,6 +58,11 @@ int main(void) {
 	int arr[3] = {80, 40, 60};
 	insert_nodes(head, arr, sizeof(arr)/sizeof(int), 1, 3);
 	print_list(head);
+	
+	printf("COPYING NODES: \n");
+	foo = copy_list(head);
+
+	print_list(foo);
 
 	printf("\n------------------------\n");
 	printf("Test deleting the node: \n");

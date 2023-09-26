@@ -1,3 +1,9 @@
+/*
+* TODO LIST:
+* 1. Add sorting to the list.
+* 2. Make a proper header file. 
+*/
+
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -108,6 +114,8 @@ int add_node (struct node *in_list) {
 		return 1;
 	
 	new_node = (struct node*)malloc(sizeof(struct node));
+
+	new_node->data = 0;
 	
 	in_list = pick_node(in_list, len_list(in_list)-1);		
 	in_list->next = new_node;
@@ -256,13 +264,39 @@ struct node *insert_nodes (struct node *in_list, int values[], size_t arr_size, 
 	if (arr_size != (second - first + 1))
 		return NULL;
 
-	for (i = 0; i < arr_size; i++){
-
+	for (i = 0; i < arr_size; i++)
 		new = insert_node(in_list, values[i], first + i);	
 
+	return new;
+}
+
+struct node *copy_list (struct node *in_list) {
+
+	if (in_list == NULL)
+		return NULL;
+
+
+	struct node *new;
+	struct node *ret;
+
+	size_t i;
+	int len;
+
+	len = (int) (len_list(in_list) - 1);
+
+	new = init_list();
+	ret = new;
+
+	add_nodes(new, len);
+	
+	for (i = 0; i < len + 1; i++){
+		new->data = in_list->data;
+		new = new->next;
+		in_list = in_list->next;
 	}
 
-	return new;
+
+	return ret; 
 }
 
 
