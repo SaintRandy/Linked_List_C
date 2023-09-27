@@ -113,10 +113,9 @@ int add_node (struct node *in_list) {
 	if (in_list == NULL)
 		return 1;
 	
-	new_node = (struct node*)malloc(sizeof(struct node));
-
-	new_node->data = 0;
 	
+	new_node = init_list();
+
 	in_list = pick_node(in_list, len_list(in_list)-1);		
 	in_list->next = new_node;
 	
@@ -297,6 +296,35 @@ struct node *copy_list (struct node *in_list) {
 
 
 	return ret; 
+}
+
+void swap_ints(int *first, int *second) {
+	
+	*first += *second; 
+	*second = *first - *second; 
+	*first = *first - *second; 
+
+}
+
+struct node *sort_list(struct node *in_list) {
+
+	if (in_list == NULL)
+		return NULL;
+
+	size_t i, j;
+	struct node *fp, *sp;
+
+	size_t len = (size_t) (len_list(in_list));
+
+	for (fp = in_list; fp != NULL; fp = fp->next) {
+		for (sp = fp; sp != NULL; sp = sp->next) {
+			if (fp->data > sp->data)
+				swap_ints(&fp->data, &sp->data);
+		}
+	}
+
+	return in_list;
+
 }
 
 

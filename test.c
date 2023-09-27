@@ -63,6 +63,11 @@ int main(void) {
 	foo = copy_list(head);
 
 	print_list(foo);
+	delete_all_nodes(foo);
+
+	sort_list(head);
+	print_list(head);
+
 
 	printf("\n------------------------\n");
 	printf("Test deleting the node: \n");
