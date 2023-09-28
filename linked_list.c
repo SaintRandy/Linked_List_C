@@ -1,7 +1,6 @@
 /*
 * TODO LIST:
-* 1. Add sorting to the list.
-* 2. Make a proper header file. 
+* 1. Make a proper header file. 
 */
 
 #include <stddef.h>
@@ -14,7 +13,7 @@ struct node {
 };
 
 ////////////////////////////////////////////////////////////////////
-int check_pvector(int first, int second) {
+size_t check_pvector(size_t first, size_t second) {
 
 	return first <= second ? 1 : 0;
 
@@ -65,8 +64,8 @@ int len_list (struct node *in_list) {
 }
 
 ////////////////////////////////////////////////////////////////////
-struct node *pick_node (struct node *in_list, int step) {
-	int i;
+struct node *pick_node (struct node *in_list, size_t step) {
+	size_t i;
 	
 	if (in_list == NULL)
 		return 0;
@@ -79,7 +78,7 @@ struct node *pick_node (struct node *in_list, int step) {
 
 
 ////////////////////////////////////////////////////////////////////
-int change_node (struct node *in_list, int step, int value) {
+int change_node (struct node *in_list, size_t step, int value) {
 	if (in_list == NULL)
 		return 1;
 
@@ -91,7 +90,7 @@ int change_node (struct node *in_list, int step, int value) {
 }
 
 ////////////////////////////////////////////////////////////////////
-int change_nodes (struct node *in_list, int step_one, int step_two, int *values) {
+int change_nodes (struct node *in_list, size_t step_one, size_t step_two, int *values) {
 	int r;
 
 	if (in_list == NULL)
@@ -100,7 +99,7 @@ int change_nodes (struct node *in_list, int step_one, int step_two, int *values)
 	if (check_pvector(step_one, step_two) == 0)
 		return 1;
 
-	for (int i = 0; step_one <= step_two && r != 1; ++i && ++step_one)
+	for (size_t i = 0; step_one <= step_two && r != 1; ++i && ++step_one)
 		r = change_node(in_list, step_one, values[i]);
 	
 	return 0;
@@ -124,8 +123,9 @@ int add_node (struct node *in_list) {
 
 
 ////////////////////////////////////////////////////////////////////
-int add_nodes (struct node *in_list, unsigned int size) {
-        int i, r;
+int add_nodes (struct node *in_list, size_t size) {
+        size_t i;
+	int r;
 	r = 0;
 
 	if (in_list == NULL)
@@ -188,7 +188,7 @@ struct node *delete_all_nodes (struct node *in_list) {
 
 
 ////////////////////////////////////////////////////////////////////
-struct node *delete_node (struct node *in_list, int step) {
+struct node *delete_node (struct node *in_list, size_t step) {
 	struct node *last = NULL;
 	struct node *next = NULL;
 	
@@ -210,8 +210,8 @@ struct node *delete_node (struct node *in_list, int step) {
 
 
 ////////////////////////////////////////////////////////////////////
-struct node *delete_n_nodes (struct node *in_list, int first, int second) {
-	int dif;
+struct node *delete_n_nodes (struct node *in_list, size_t first, size_t second) {
+	size_t dif;
 	struct node *last;
 
 	if (!check_pvector(first, second))
@@ -219,7 +219,7 @@ struct node *delete_n_nodes (struct node *in_list, int first, int second) {
 
 	dif = second - first;
 
-	for (int i = 0; i <= dif; i++) 
+	for (size_t i = 0; i <= dif; i++) 
 		last = delete_node(in_list, first);
 
 	return last;
@@ -228,7 +228,7 @@ struct node *delete_n_nodes (struct node *in_list, int first, int second) {
 
 
 ////////////////////////////////////////////////////////////////////
-struct node *insert_node (struct node *in_list, int value, unsigned int step) {
+struct node *insert_node (struct node *in_list, int value, size_t step) {
 	struct node *before;
 	struct node *new;
 	struct node *after;
@@ -251,8 +251,8 @@ struct node *insert_node (struct node *in_list, int value, unsigned int step) {
 }
 
 
-struct node *insert_nodes (struct node *in_list, int values[], size_t arr_size, unsigned int first, 
-			   unsigned int second) {
+struct node *insert_nodes (struct node *in_list, int values[], size_t arr_size, size_t first, 
+			   size_t second) {
 	
 	size_t i;
 	struct node *new;
