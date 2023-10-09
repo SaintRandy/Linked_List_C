@@ -63,7 +63,9 @@ int main(void) {
 	foo = copy_list(head);
 
 	print_list(foo);
-	delete_all_nodes(foo);
+	connect_nodes(head, foo);
+
+	print_list(head);
 
 	sort_list(head);
 	print_list(head);

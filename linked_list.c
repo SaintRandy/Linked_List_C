@@ -1,6 +1,6 @@
 /*
 * TODO LIST:
-* 1. Make a proper header file. 
+* 1. Make a proper header file.
 */
 
 #include <stddef.h>
@@ -325,6 +325,20 @@ struct node *sort_list(struct node *in_list) {
 
 	return in_list;
 
+}
+
+struct node *connect_nodes(struct node *first_list, struct node *second_list) {
+
+	struct node *tmp = NULL;
+
+	if (first_list == NULL)
+		return NULL;		
+
+	tmp = pick_node(first_list, len_list(first_list)-1);
+
+	tmp->next = second_list;
+
+	return first_list;
 }
 
 
