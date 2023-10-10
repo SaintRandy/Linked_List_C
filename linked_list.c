@@ -336,9 +336,30 @@ struct node *connect_nodes(struct node *first_list, struct node *second_list) {
 
 	tmp = pick_node(first_list, len_list(first_list)-1);
 
+	if (tmp->next != NULL)
+		return NULL;
+
 	tmp->next = second_list;
 
 	return first_list;
+}
+
+
+struct node *disconnect_node(struct node *in_list, size_t step) {
+
+	struct node *tmp;
+
+	if (in_list == NULL)
+		return NULL;
+
+	tmp = pick_node(in_list, step);
+
+	pick_node(in_list, step-1)->next = tmp->next;
+
+	tmp->next = NULL;
+
+	return tmp;
+
 }
 
 

@@ -67,6 +67,11 @@ int main(void) {
 
 	print_list(head);
 
+	printf("CHECKING SEPARATION: \n");
+	struct node *tmp = disconnect_node(head, 4);
+
+	print_list(head); print_list(tmp);
+
 	sort_list(head);
 	print_list(head);
 
