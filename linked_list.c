@@ -332,7 +332,7 @@ struct node *connect_nodes(struct node *first_list, struct node *second_list) {
 	struct node *tmp = NULL;
 
 	if (first_list == NULL)
-		return NULL;		
+		return second_list;		
 
 	tmp = pick_node(first_list, len_list(first_list)-1);
 
@@ -359,6 +359,51 @@ struct node *disconnect_node(struct node *in_list, size_t step) {
 	tmp->next = NULL;
 
 	return tmp;
+
+}
+
+
+struct node *better_sort_list(struct node *in_list) {
+
+	size_t i;
+	size_t list_size;
+
+	struct node *anchor;
+	struct node *pivot;
+	struct node *tmp;
+	struct node *lesser_list = NULL;
+	struct node *greater_list = NULL;
+
+	if (in_list == NULL)
+		return NULL;
+
+	if (len_list(in_list) < 2)
+		return in_list;
+
+
+	anchor = in_list;
+	pivot = pick_node(in_list, 1);
+	list_size = len_list(in_list) - 1;
+
+	for (i = 0; i < list_size; i++) {
+
+		tmp = disconnect_node(in_list, 1);
+		
+		if (anchor->data >  tmp->data) {
+			lesser_list = connect_nodes(lesser_list, tmp);
+		} else {
+			greater_list = connect_nodes(greater_list, tmp);
+		}
+
+
+	}
+
+	
+	lesser_list = better_sort_list(lesser_list);
+	greater_list = better_sort_list(greater_list);
+
+	return connect_nodes(connect_nodes(lesser_list, anchor), greater_list);
+
 
 }
 

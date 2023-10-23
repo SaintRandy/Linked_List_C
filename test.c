@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "linked_list.c"
 
 int main(void) {
 
 	struct node *head = init_list();
 	struct node *foo = NULL;
+	clock_t t;
 	int values[3] = {5, 6, 7};
 	int r;
 
@@ -55,7 +57,7 @@ int main(void) {
 	insert_node(head, 15, 1);
 	print_list(head);
 	
-	int arr[3] = {80, 40, 60};
+	int arr[3] = {-5, 40, 60};
 	insert_nodes(head, arr, sizeof(arr)/sizeof(int), 1, 3);
 	print_list(head);
 	
@@ -63,17 +65,41 @@ int main(void) {
 	foo = copy_list(head);
 
 	print_list(foo);
+	printf("CONNECT NODES: \n");
 	connect_nodes(head, foo);
 
 	print_list(head);
 
 	printf("CHECKING SEPARATION: \n");
-	struct node *tmp = disconnect_node(head, 4);
+	struct node *tmp = disconnect_node(head, len_list(head)-1);
 
 	print_list(head); print_list(tmp);
 
-	sort_list(head);
+	foo = copy_list(head);
+
+	t = clock();
+
+	
+	foo = sort_list(foo);
+
+	t = clock() - t;
+
+	double time_taken = ((double)t)/CLOCKS_PER_SEC;
+
+	printf("/////////USUAL SORT TOOK: %f ////////////\n", time_taken);
+
+	t = clock();
+
+	head = better_sort_list(head);
+
+	t = clock() - t;
+
+	time_taken = ((double)t)/CLOCKS_PER_SEC;
+
+	printf("/////////QUICK SORT TOOK: %f ////////////\n", time_taken);
+
 	print_list(head);
+	print_list(foo);
 
 
 	printf("\n------------------------\n");
