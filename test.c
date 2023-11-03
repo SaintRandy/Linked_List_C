@@ -56,9 +56,10 @@ int main(void) {
 	printf("Inserting value 15 in second (1) step of the list\n");
 	insert_node(head, 15, 1);
 	print_list(head);
-	
+
+	printf("ATTENTION\n");
 	int arr[3] = {-5, 40, 60};
-	insert_nodes(head, arr, sizeof(arr)/sizeof(int), 1, 3);
+	insert_nodes(head, arr, sizeof(arr)/sizeof(int), 1);
 	print_list(head);
 	
 	printf("COPYING NODES: \n");
@@ -66,6 +67,8 @@ int main(void) {
 
 	print_list(foo);
 	printf("CONNECT NODES: \n");
+	connect_nodes(head, foo);
+	foo = copy_list(head);
 	connect_nodes(head, foo);
 
 	print_list(head);
@@ -90,7 +93,7 @@ int main(void) {
 
 	t = clock();
 
-	head = better_sort_list(head);
+	head = quick_sort_list(head);
 
 	t = clock() - t;
 

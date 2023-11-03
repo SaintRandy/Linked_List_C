@@ -1,6 +1,8 @@
 /*
 * TODO LIST:
 * 1. Make a proper header file.
+* 2. Refactor quick sort function.
+* 3. Clean up the test file.
 */
 
 #include <stddef.h>
@@ -251,20 +253,16 @@ struct node *insert_node (struct node *in_list, int value, size_t step) {
 }
 
 
-struct node *insert_nodes (struct node *in_list, int values[], size_t arr_size, size_t first, 
-			   size_t second) {
+struct node *insert_nodes (struct node *in_list, int values[], size_t arr_size, size_t step) {
 	
 	size_t i;
 	struct node *new;
 
-	if (!check_pvector(first, second))
-		return NULL;
-
-	if (arr_size != (second - first + 1))
+	if (in_list == NULL)
 		return NULL;
 
 	for (i = 0; i < arr_size; i++)
-		new = insert_node(in_list, values[i], first + i);	
+		new = insert_node(in_list, values[i], step + i);	
 
 	return new;
 }
@@ -363,7 +361,7 @@ struct node *disconnect_node(struct node *in_list, size_t step) {
 }
 
 
-struct node *better_sort_list(struct node *in_list) {
+struct node *quick_sort_list(struct node *in_list) {
 
 	size_t i;
 	size_t list_size;
@@ -399,8 +397,8 @@ struct node *better_sort_list(struct node *in_list) {
 	}
 
 	
-	lesser_list = better_sort_list(lesser_list);
-	greater_list = better_sort_list(greater_list);
+	lesser_list = quick_sort_list(lesser_list);
+	greater_list = quick_sort_list(greater_list);
 
 	return connect_nodes(connect_nodes(lesser_list, anchor), greater_list);
 
