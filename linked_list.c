@@ -9,10 +9,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct node {
+typedef struct node {
 	int data;
 	struct node *next;
-};
+} node;
 
 ////////////////////////////////////////////////////////////////////
 size_t check_pvector(size_t first, size_t second) {
@@ -22,7 +22,7 @@ size_t check_pvector(size_t first, size_t second) {
 }
 
 ////////////////////////////////////////////////////////////////////
-int print_list (struct node *in_list) {
+int print_list (node *in_list) {
 
 	if (in_list == NULL)
 		return 1;
@@ -53,7 +53,7 @@ struct node *init_list () {
 }
 
 ////////////////////////////////////////////////////////////////////
-int len_list (struct node *in_list) {
+int len_list (node *in_list) {
 	int i;
 	
 	if (in_list == NULL)
@@ -66,7 +66,7 @@ int len_list (struct node *in_list) {
 }
 
 ////////////////////////////////////////////////////////////////////
-struct node *pick_node (struct node *in_list, size_t step) {
+struct node *pick_node (node *in_list, size_t step) {
 	size_t i;
 	
 	if (in_list == NULL)
@@ -80,7 +80,7 @@ struct node *pick_node (struct node *in_list, size_t step) {
 
 
 ////////////////////////////////////////////////////////////////////
-int change_node (struct node *in_list, size_t step, int value) {
+int change_node (node *in_list, size_t step, int value) {
 	if (in_list == NULL)
 		return 1;
 
@@ -92,7 +92,7 @@ int change_node (struct node *in_list, size_t step, int value) {
 }
 
 ////////////////////////////////////////////////////////////////////
-int change_nodes (struct node *in_list, size_t step_one, size_t step_two, int *values) {
+int change_nodes (node *in_list, size_t step_one, size_t step_two, int *values) {
 	int r;
 
 	if (in_list == NULL)
@@ -108,7 +108,7 @@ int change_nodes (struct node *in_list, size_t step_one, size_t step_two, int *v
 }
 
 ////////////////////////////////////////////////////////////////////
-int add_node (struct node *in_list) {
+int add_node (node *in_list) {
 	struct node *new_node = NULL;
 	
 	if (in_list == NULL)
@@ -125,7 +125,7 @@ int add_node (struct node *in_list) {
 
 
 ////////////////////////////////////////////////////////////////////
-int add_nodes (struct node *in_list, size_t size) {
+int add_nodes (node *in_list, size_t size) {
         size_t i;
 	int r;
 	r = 0;
@@ -142,7 +142,7 @@ int add_nodes (struct node *in_list, size_t size) {
 
 
 ////////////////////////////////////////////////////////////////////
-struct node *delete_first_node (struct node *in_list) {
+struct node *delete_first_node (node *in_list) {
 	struct node *next = NULL;
 
 	if (in_list == NULL)
@@ -160,7 +160,7 @@ struct node *delete_first_node (struct node *in_list) {
 
 
 ////////////////////////////////////////////////////////////////////
-struct node *delete_last_node (struct node *in_list) {
+struct node *delete_last_node (node *in_list) {
 	struct node *last = NULL;
 	
 	if (in_list == NULL)
@@ -177,7 +177,7 @@ struct node *delete_last_node (struct node *in_list) {
 }
 
 ////////////////////////////////////////////////////////////////////
-struct node *delete_all_nodes (struct node *in_list) {
+struct node *delete_all_nodes (node *in_list) {
 
 	if (in_list == NULL)
 		return NULL;
@@ -190,7 +190,7 @@ struct node *delete_all_nodes (struct node *in_list) {
 
 
 ////////////////////////////////////////////////////////////////////
-struct node *delete_node (struct node *in_list, size_t step) {
+struct node *delete_node (node *in_list, size_t step) {
 	struct node *last = NULL;
 	struct node *next = NULL;
 	
@@ -212,7 +212,7 @@ struct node *delete_node (struct node *in_list, size_t step) {
 
 
 ////////////////////////////////////////////////////////////////////
-struct node *delete_n_nodes (struct node *in_list, size_t first, size_t second) {
+struct node *delete_n_nodes (node *in_list, size_t first, size_t second) {
 	size_t dif;
 	struct node *last;
 
@@ -230,7 +230,7 @@ struct node *delete_n_nodes (struct node *in_list, size_t first, size_t second) 
 
 
 ////////////////////////////////////////////////////////////////////
-struct node *insert_node (struct node *in_list, int value, size_t step) {
+struct node *insert_node (node *in_list, int value, size_t step) {
 	struct node *before;
 	struct node *new;
 	struct node *after;
@@ -253,7 +253,7 @@ struct node *insert_node (struct node *in_list, int value, size_t step) {
 }
 
 
-struct node *insert_nodes (struct node *in_list, int values[], size_t arr_size, size_t step) {
+struct node *insert_nodes (node *in_list, int values[], size_t arr_size, size_t step) {
 	
 	size_t i;
 	struct node *new;
@@ -267,7 +267,7 @@ struct node *insert_nodes (struct node *in_list, int values[], size_t arr_size, 
 	return new;
 }
 
-struct node *copy_list (struct node *in_list) {
+struct node *copy_list (node *in_list) {
 
 	if (in_list == NULL)
 		return NULL;
@@ -304,7 +304,7 @@ void swap_ints(int *first, int *second) {
 
 }
 
-struct node *sort_list(struct node *in_list) {
+struct node *sort_list(node *in_list) {
 
 	if (in_list == NULL)
 		return NULL;
@@ -325,7 +325,7 @@ struct node *sort_list(struct node *in_list) {
 
 }
 
-struct node *connect_nodes(struct node *first_list, struct node *second_list) {
+struct node *connect_nodes(node *first_list, struct node *second_list) {
 
 	struct node *tmp = NULL;
 
@@ -343,7 +343,7 @@ struct node *connect_nodes(struct node *first_list, struct node *second_list) {
 }
 
 
-struct node *disconnect_node(struct node *in_list, size_t step) {
+struct node *disconnect_node(node *in_list, size_t step) {
 
 	struct node *tmp;
 
@@ -361,7 +361,7 @@ struct node *disconnect_node(struct node *in_list, size_t step) {
 }
 
 
-struct node *quick_sort_list(struct node *in_list) {
+struct node *quick_sort_list(node *in_list) {
 
 	size_t i;
 	size_t list_size;
@@ -407,7 +407,7 @@ struct node *quick_sort_list(struct node *in_list) {
 
 
 ////////////////////////////////////////////////////////////////////
-int debug_nodes(struct node *in_list) {
+int debug_nodes(node *in_list) {
 	
 	int i = 0;
 
